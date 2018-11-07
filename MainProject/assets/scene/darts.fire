@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.6233316637283995,
+      "y": 0.6233316637283995,
       "z": 1
     },
     "_quat": {
@@ -123,7 +123,7 @@
       "w": 1
     },
     "_skewX": 0,
-    "_skewY": 0,
+    "_skewY": 1,
     "_zIndex": 0,
     "groupIndex": 0,
     "_id": "7122JbBCNEe7Fx3U7QBftw"
@@ -255,6 +255,7 @@
       }
     ],
     "_Movespeed": 0.4,
+    "_sightStarValue": [],
     "_id": "baZYY/PcdJRoJAu/BoAtJ4"
   },
   {
@@ -507,7 +508,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "botton",
+    "_name": "bottom",
     "_objFlags": 0,
     "_parent": {
       "__id__": 7
