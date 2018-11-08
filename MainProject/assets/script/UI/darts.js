@@ -8,7 +8,6 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 import _ from 'utils/underscore-min.js';
-// var _ = require('utils/underscore-min.js');
 
 cc.Class({
     extends: cc.Component,
@@ -16,6 +15,7 @@ cc.Class({
     properties: {
         dartPanel: cc.Node,
         dartSight: cc.Node,
+        SightMark: cc.Node,
         sightStar: [cc.Node, cc.Node, cc.Node, cc.Node],
         _dartSightValue: {
             displayName: '模拟手抖数值，8个方向',
@@ -84,7 +84,7 @@ cc.Class({
         // 前后前后动作
         this._sigthAimat()
         // 8个方向晃动动作
-        // this._sightActionBuff()
+        this._sightActionBuff()
     },
     
     // 准星前后移动模拟呼吸动作
@@ -104,44 +104,48 @@ cc.Class({
             ))
         }
     },
-    
+
+    // 模拟手抖动数值计算
     // 9宫格，8个方向
+    // -----------------
+    // | 左上| 上 | 右上 |
+    // | 左  | 中 | 右  |
+    // | 左下| 下 | 右下 |
+    // -----------------
+    // 数值计算方式
+    // (方向数值 + 随机距离) * 偏移方向
+    // 举例：(_dartSightValue.value + rollDistance) * _dartSightValue.direction.x or _dartSightValue.direction.y
     _sightActionRoll: function () {
         // 随机8个方向
         let tempArroy = []
-        // 半径距离
-        const radius = 5;
-        // 当前位置 0 0
-        const current = this.dartSight.position
+        // 规定距离
+        const radius = 10;
         // 随机打乱方向
         const rollDirection = _.shuffle(this._dartSightValue)
 
         for (let item of rollDirection) {
             // 随机距离
             let rollDistance = _.random(1, radius)
-            tempArroy.push(cc.moveTo(.5, cc.v2(current.x + (item.value + rollDistance) * item.direction.x, current.y + (item.value + rollDistance) * item.direction.y)))
+            tempArroy.push(cc.moveBy(.5, cc.v2((item.value + rollDistance) * item.direction.x, (item.value + rollDistance) * item.direction.y)))
         }
-        console.log(tempArroy)
         return tempArroy
     },
 
     // 瞄准器晃动、模拟手抖动作 
     _sightActionBuff: function () {
-        if (this.dartSight.active) {
-            this.dartSight.runAction(
-                cc.repeatForever(
-                    cc.sequence(
-                        this._sightActionRoll()
-                    )
+        this.dartSight.runAction(
+            cc.repeatForever(
+                cc.sequence(
+                    this._sightActionRoll()
                 )
             )
-        }
+        )
     },
 
     // 瞄准器移动
     _sightMove: function (delta) {
         // 跟随
-        this.dartSight.runAction(cc.moveBy(this._moveSpeed, delta))
+        this.SightMark.runAction(cc.moveBy(this._moveSpeed, delta))
     },
 
     // 销毁瞄准器 & 发射 & 复位
@@ -160,7 +164,7 @@ cc.Class({
         // 准星前后呼吸值
         this._sightStarSpeed = {
             first: .5,  // 第一次呼吸速度
-            value: .4   // 之后循环呼吸速度
+            value: .3   // 之后循环呼吸速度
         }
 
         // 准星前后跳动数值
@@ -242,7 +246,7 @@ cc.Class({
         }]
 
         // 瞄准器默认关闭
-        // this._sightDestroy()
+        this._sightDestroy()
     },
 
     start: function () {
@@ -252,6 +256,6 @@ cc.Class({
     },
 
     update: function (dt) {
-        this._sightActionBuff(dt)
+        // this._sightActionBuff(dt)
     }
 });
