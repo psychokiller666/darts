@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "86f3be1a-853b-4e73-8bfa-cff7f12be7db",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "主界面-确定-高光11111_0002_图层-1": {
+      "ver": "1.0.3",
+      "uuid": "22e7ddf8-9fa6-4f5a-b477-d90859fe1f92",
+      "rawTextureUuid": "86f3be1a-853b-4e73-8bfa-cff7f12be7db",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 535,
+      "height": 601,
+      "rawWidth": 535,
+      "rawHeight": 601,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

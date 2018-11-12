@@ -13,10 +13,16 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        hand: cc.Animation,
+        touchEvent: cc.Node,
         dartPanel: cc.Node,
         dartSight: cc.Node,
         SightMark: cc.Node,
         sightStar: [cc.Node, cc.Node, cc.Node, cc.Node],
+        camera: {
+            default: null,
+            type: cc.Camera
+        },
         _dartSightValue: {
             displayName: '模拟手抖数值，8个方向',
             default: []
@@ -54,23 +60,23 @@ cc.Class({
 
     _sightListener: function () {
         // 启用瞄准器
-        this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
-            console.log(event.getLocation())
+        this.touchEvent.on(cc.Node.EventType.TOUCH_START, (event) => {
+            // console.log(event.getLocation())
             this._sightInit(event.getLocation())
         })
 
         // 瞄准器移动
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+        this.touchEvent.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             this._sightMove(event.getDelta())
         })
 
         // 释放瞄准器
-        this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+        this.touchEvent.on(cc.Node.EventType.TOUCH_END, (event) => {
             this._sightDestroy()
         })
 
         // 释放瞄准器
-        this.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
+        this.touchEvent.on(cc.Node.EventType.TOUCH_CANCEL, () => {
             this._sightDestroy()
         })
     },
@@ -78,9 +84,10 @@ cc.Class({
     // 初始化瞄准器
     _sightInit: function (position) {
         this.dartSight.active = true
-        this.dartSight.setPosition(position)
+        // console.log()
+        this.dartSight.children[1].setPosition(position)
         // 镜头拉近动作
-
+        // this.camera.zoomRatio = 1.5
         // 前后前后动作
         this._sigthAimat()
         // 8个方向晃动动作
@@ -104,7 +111,15 @@ cc.Class({
             ))
         }
     },
-
+    _cameraZoom: function (dt) {
+        if (this.dartSight.active) {
+            if (this.camera.zoomRatio <= 1.5) {
+                this.camera.zoomRatio = this.camera.zoomRatio + dt
+            } 
+            // console.log(dt)
+            // this.camera.zoomRatio = 1.5
+        }
+    },
     // 模拟手抖动数值计算
     // 9宫格，8个方向
     // -----------------
@@ -150,6 +165,9 @@ cc.Class({
 
     // 销毁瞄准器 & 发射 & 复位
     _sightDestroy: function () {
+        // 发射
+        this._fire(this.dartSight.children[1].position)
+        // 复位
         this.dartSight.active = false
         // 准星复位
         for (let key in this._sightStarValue) {
@@ -158,6 +176,13 @@ cc.Class({
         }
 
         cc.director.getActionManager().removeAllActionsFromTarget(this.dartSight)
+
+        this.camera.zoomRatio = 1
+
+    },
+
+    _fire: function (position) {
+        console.log('发射坐标', position)
     },
 
     onLoad: function () {
@@ -189,7 +214,7 @@ cc.Class({
         // 手抖值 顺时针方向
         this._dartSightValue = [{
             name: 'top',
-            value: 2,
+            value: 5,
             direction: {
                 x: 0,
                 y: 1
@@ -203,7 +228,7 @@ cc.Class({
             }
         },{
             name: 'right',
-            value: 2,
+            value: 8,
             direction: {
                 x: 1,
                 y: 0
@@ -217,7 +242,7 @@ cc.Class({
             }
         },{
             name: 'bottom',
-            value: 2,
+            value: 10,
             direction: {
                 x: 0,
                 y: -1
@@ -246,7 +271,7 @@ cc.Class({
         }]
 
         // 瞄准器默认关闭
-        this._sightDestroy()
+        // this._sightDestroy()
     },
 
     start: function () {
@@ -257,5 +282,7 @@ cc.Class({
 
     update: function (dt) {
         // this._sightActionBuff(dt)
+        // if ()
+        this._cameraZoom(dt)
     }
 });
