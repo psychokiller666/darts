@@ -1,6 +1,6 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "hand",
+  "_name": "fireHandStartAnim",
   "_objFlags": 0,
   "_native": "",
   "_duration": 0.125,
@@ -9,7 +9,7 @@
   "wrapMode": "2",
   "curveData": {
     "paths": {
-      "New Sprite": {
+      "handnode": {
         "comps": {
           "cc.Sprite": {
             "spriteFrame": [
@@ -27,9 +27,10 @@
               }
             ]
           }
-        }
+        },
+        "props": {}
       },
-      "New Sprite(Splash)": {
+      "dartnode": {
         "comps": {
           "cc.Sprite": {
             "spriteFrame": [
@@ -47,9 +48,16 @@
               }
             ]
           }
-        }
+        },
+        "props": {}
       }
     }
   },
-  "events": []
+  "events": [
+    {
+      "frame": 0.08333333333333333,
+      "func": "onaaaa",
+      "params": []
+    }
+  ]
 }

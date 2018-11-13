@@ -13,12 +13,16 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        hand: cc.Animation,
         touchEvent: cc.Node,
         dartPanel: cc.Node,
         dartSight: cc.Node,
         SightMark: cc.Node,
         sightStar: [cc.Node, cc.Node, cc.Node, cc.Node],
+        thunderLayout: cc.Node,
+        // thunder: cc.Prefab,
+        playBack: cc.Node,
+        handAnim: cc.Animation,
+        playBackAnim: cc.Animation,
         camera: {
             default: null,
             type: cc.Camera
@@ -62,22 +66,51 @@ cc.Class({
         // 启用瞄准器
         this.touchEvent.on(cc.Node.EventType.TOUCH_START, (event) => {
             // console.log(event.getLocation())
+            this.handAnim.play('fireHandStartAnim')
             this._sightInit(event.getLocation())
         })
 
         // 瞄准器移动
-        this.touchEvent.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this._sightMove(event.getDelta())
-        })
+        this.touchEvent.on(cc.Node.EventType.TOUCH_MOVE, (event) => this._sightMove(event.getDelta()))
 
         // 释放瞄准器
         this.touchEvent.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.handAnim.stop('fireHandStartAnim')
+            this.handAnim.play('fireHandEndAnim')
+
+            this.handAnim.on('finished', () => {
+                // 瞄准器复位
+                this.handAnim.off('finished')
+            })
+            this.playBackAnim.on('finished', () => {
+                setTimeout(() => {
+                    this.playBack.active = false
+                    this.camera.zoomRatio = 1
+                }, 800)
+                this.playBackAnim.off('finished')
+            })
             this._sightDestroy()
+            // this._sightDestroy()
         })
 
         // 释放瞄准器
         this.touchEvent.on(cc.Node.EventType.TOUCH_CANCEL, () => {
+            this.handAnim.stop('fireHandStartAnim')
+            this.handAnim.play('fireHandEndAnim')
+
+            this.handAnim.on('finished', () => {
+                // 瞄准器复位
+                this.handAnim.off('finished')
+            })
+            this.playBackAnim.on('finished', () => {
+                setTimeout(() => {
+                    this.playBack.active = false
+                    this.camera.zoomRatio = 1
+                }, 800)
+                this.playBackAnim.off('finished')
+            })
             this._sightDestroy()
+            // this._sightDestroy()
         })
     },
 
@@ -86,8 +119,6 @@ cc.Class({
         this.dartSight.active = true
         // console.log()
         this.dartSight.children[1].setPosition(position)
-        // 镜头拉近动作
-        // this.camera.zoomRatio = 1.5
         // 前后前后动作
         this._sigthAimat()
         // 8个方向晃动动作
@@ -109,6 +140,13 @@ cc.Class({
                     ))
                 }, this.sightStar[key])
             ))
+        }
+    },
+    _cameraZoom2: function (dt) {
+        if (this.playBack.active) {
+            if (this.camera.zoomRatio <= 2) {
+                this.camera.zoomRatio = this.camera.zoomRatio + dt
+            } 
         }
     },
     _cameraZoom: function (dt) {
@@ -169,19 +207,28 @@ cc.Class({
         this._fire(this.dartSight.children[1].position)
         // 复位
         this.dartSight.active = false
+        // this.playBack.active = false
         // 准星复位
         for (let key in this._sightStarValue) {
             this.sightStar[key].setPosition(this._sightStarValue[key].reset)
             cc.director.getActionManager().removeAllActionsFromTarget(this.sightStar[key])
         }
-
         cc.director.getActionManager().removeAllActionsFromTarget(this.dartSight)
+        this.camera.zoomRatio = 1.5
+    },
 
-        this.camera.zoomRatio = 1
-
+    _fireAnimation: function () {
+        // 播放动画
+        this.playBackAnim.play()
+        this.playBack.active = true
+    },
+    onPlayBackEnd: function () {
+        console.log('faaf')
     },
 
     _fire: function (position) {
+        // 播放发射动画
+        this._fireAnimation()
         console.log('发射坐标', position)
     },
 
@@ -275,7 +322,10 @@ cc.Class({
     },
 
     start: function () {
+        // 监听
         this._sightListener()
+        // 初始化扫雷
+        // console.log(this.getComponent('Thunder'))
         // 调试模式
         // this._sightInit(cc.v2(498.375, 713.25))
     },
@@ -284,5 +334,6 @@ cc.Class({
         // this._sightActionBuff(dt)
         // if ()
         this._cameraZoom(dt)
+        this._cameraZoom2(dt)
     }
 });

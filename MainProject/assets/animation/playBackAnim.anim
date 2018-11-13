@@ -1,0 +1,53 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "playBackAnim",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.7083333333333334,
+  "sample": 24,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "New Sprite(Splash)": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "ee5ed4da-3eab-4d54-ac6b-431ae4682bdc"
+                }
+              },
+              {
+                "frame": 0.25,
+                "value": {
+                  "__uuid__": "ee5ed4da-3eab-4d54-ac6b-431ae4682bdc"
+                }
+              },
+              {
+                "frame": 0.4583333333333333,
+                "value": {
+                  "__uuid__": "4be3a8b3-392e-4f89-bbbb-3aec63cfb1b0"
+                }
+              },
+              {
+                "frame": 0.6666666666666666,
+                "value": {
+                  "__uuid__": "ad90b43a-c4ff-4fa6-8e4b-b39b1215f817"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0.5416666666666666,
+      "func": "onPlayBackEnd",
+      "params": []
+    }
+  ]
+}
