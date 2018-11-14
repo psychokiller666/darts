@@ -1,4 +1,12 @@
 {
+  "android-instant": {
+    "REMOTE_SERVER_ROOT": "",
+    "host": "",
+    "pathPattern": "",
+    "recordPath": "",
+    "scheme": "https",
+    "skipRecord": false
+  },
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
@@ -25,15 +33,15 @@
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "startScene": "b52a006f-0203-4ed4-bf17-7fb7bea60823",
+  "startScene": "e1bfa7b4-7bd0-470d-8405-4b572c9217e2",
   "title": "MainProject",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "",
+    "appid": "wxf25d03d88eea0682",
     "isSubdomain": false,
     "orientation": "portrait",
-    "subContext": "wechatgame-subcontext"
+    "subContext": ""
   },
   "xxteaKey": "475eddf6-3137-42",
   "zipCompressJs": true

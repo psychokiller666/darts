@@ -50,8 +50,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7611981016475193,
-      "y": 0.7611981016475193,
+      "x": 0.6553528877785462,
+      "y": 0.6553528877785462,
       "z": 1
     },
     "_quat": {
@@ -727,7 +727,7 @@
         "__id__": 19
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -1007,7 +1007,7 @@
         "__uuid__": "630c1af5-3195-4c70-9be9-4699be56474d"
       }
     ],
-    "playOnLoad": true,
+    "playOnLoad": false,
     "_id": "a4IClaLthGdZz392P7iPom"
   },
   {
@@ -1928,7 +1928,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "touchEvent",
+    "_name": "touchEventNode",
     "_objFlags": 0,
     "_parent": {
       "__id__": 40
@@ -2044,6 +2044,9 @@
     "_components": [
       {
         "__id__": 47
+      },
+      {
+        "__id__": 50
       }
     ],
     "_prefab": null,
@@ -2100,9 +2103,7 @@
       "__id__": 46
     },
     "_enabled": true,
-    "touchEvent": {
-      "__id__": 43
-    },
+    "touchEvent": null,
     "dartPanel": {
       "__id__": 6
     },
@@ -2227,5 +2228,52 @@
     "_zIndex": 0,
     "groupIndex": 0,
     "_id": "d0yyklfJpNHYuIhIbjuHmp"
+  },
+  {
+    "__type__": "d0dbcK/gKFNpqJN9Tg3TlQK",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 46
+    },
+    "_enabled": true,
+    "touchEvent": {
+      "__id__": 43
+    },
+    "sightStar": [
+      {
+        "__id__": 25
+      },
+      {
+        "__id__": 27
+      },
+      {
+        "__id__": 29
+      },
+      {
+        "__id__": 31
+      }
+    ],
+    "dartSight": {
+      "__id__": 15
+    },
+    "SightMark": {
+      "__id__": 24
+    },
+    "handAnim": {
+      "__id__": 22
+    },
+    "playBackAnim": {
+      "__id__": 39
+    },
+    "camera": {
+      "__id__": 48
+    },
+    "_dartSightValue": [],
+    "_moveSpeed": 0.4,
+    "_sightStarSpeed": {},
+    "_sightStarValue": [],
+    "__sightStarCameraZoom": 1.5,
+    "_id": "5eL1Q25z9FuJxXKDq105G9"
   }
 ]
