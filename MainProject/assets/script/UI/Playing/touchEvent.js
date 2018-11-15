@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-import _ from '../../utils/underscore-min.js';
+import _ from '../utils/underscore-min.js';
 
 cc.Class({
     extends: cc.Component,
@@ -190,6 +190,9 @@ cc.Class({
         // 注销动画监听
         this.handAnim.off('finished')
         this.playBackAnim.off('finished')
+
+        // 贴图飞镖
+        
     },
 
     // 镜头拉近
