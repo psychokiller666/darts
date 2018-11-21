@@ -6,7 +6,7 @@
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "飞镖 假图": {
+    "bg": {
       "ver": "1.0.3",
       "uuid": "b7af930f-1b18-4699-889d-a3af49daaf59",
       "rawTextureUuid": "1b4058d3-5d51-4e97-ba7d-73134881ce53",
