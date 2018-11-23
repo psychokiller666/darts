@@ -162,7 +162,8 @@ cc.Class({
         this.handAnim.node.active = true
         // 设置定位
         // 设置偏移量
-        this.sightMove.setPosition(position.x - 80, position.y + 100)
+        
+        this.sightMove.setPosition(position.x + _.random(-40, -120), position.y + _.random(40, 120))
 
         // 播放手部动画
         this.handAnim.play('fireHandStartAnim')
@@ -354,7 +355,7 @@ cc.Class({
         // 随机8个方向
         let tempArroy = []
         // 规定距离
-        const radius = 8;
+        const radius = 10;
         // 随机打乱方向
         const rollDirection = _.shuffle(this._dartSightValue)
 
@@ -362,9 +363,8 @@ cc.Class({
             // 随机距离
             let rollDistance = _.random(1, radius)
             tempArroy.push(cc.moveBy(.6, cc.v2((item.value + rollDistance) * item.direction.x, (item.value + rollDistance) * item.direction.y)))
+            tempArroy.push(cc.moveBy(.5, cc.v2((item.value + rollDistance) * item.direction.x, (item.value + rollDistance) * item.direction.y)).reverse())
         }
-        // console.log(tempArroy)
-
         return tempArroy
     },
 
@@ -465,7 +465,7 @@ cc.Class({
     _updateValue: function (multiple) {
         // 准星前后呼吸值
         this._sightStarSpeed = {
-            first: .3 * multiple,  // 第一次呼吸速度
+            first: .6 * multiple,  // 第一次呼吸速度
             value: .18 * multiple      // 之后循环呼吸速度
         }
         
